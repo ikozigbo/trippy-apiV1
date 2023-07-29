@@ -210,11 +210,10 @@ const updateUserName = async (req, res) => {
 //add profile picture
 // update profile
 const addProfilePicture = async (req, res) => {
-  const { userId } = req.body;
   try {
-    const profile = await User.findById(userId);
+    const profile = await User.findById(req.user._id);
     if (profile) {
-      console.log(req.file);
+      //console.log(req.file);
       let result = null;
       // Delete the existing image from local upload folder and Cloudinary
       if (req.file) {
@@ -234,7 +233,7 @@ const addProfilePicture = async (req, res) => {
         });
         await profile.save();
 
-        const updated = await User.findById(userId);
+        const updated = await User.findById(req.user._id);
 
         res
           .status(200)
