@@ -7,6 +7,9 @@ const PORT = process.env.PORT || 5050;
 const app = express();
 app.use(express.json());
 
+app.get("/", (req, res) => {
+  res.send("Welcome to my server!");
+});
 app.use("/trippy", userRouter);
 app.use("/trippy", adminRouter);
 
