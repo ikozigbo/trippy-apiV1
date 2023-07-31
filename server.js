@@ -2,6 +2,7 @@ require("./config/dbConfig");
 const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
+const fileUpload = require("express-fileupload");
 const userRouter = require("./routers/userRouter");
 const adminRouter = require("./routers/adminRouter");
 const PORT = process.env.PORT || 5050;
@@ -12,6 +13,11 @@ const app = express();
 app.use(cors());
 
 app.use(express.json());
+app.use(
+  fileUpload({
+    useTempFiles: true,
+  })
+);
 app.use(morgan("dev"));
 
 app.get("/", (req, res) => {
