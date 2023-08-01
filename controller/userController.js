@@ -23,7 +23,7 @@ const newUser = async (req, res) => {
         email: email.toLowerCase(),
         password: hash,
       });
-      const token = await genToken(user._id, "30m");
+      const token = await genToken(user._id, "1d");
       const subject = "New User";
       const link = `${req.protocol}://${req.get(
         "host"
@@ -73,7 +73,7 @@ const resendEmailVerification = async (req, res) => {
     const { email } = req.body;
     const user = await User.findOne({ email });
     if (user && !user.isVerified) {
-      const token = await genToken(user._id, "30m");
+      const token = await genToken(user._id, "1d");
       const subject = "New User";
       const link = `${req.protocol}://${req.get(
         "host"
@@ -120,7 +120,7 @@ const signin = async (req, res) => {
     } else if (user.isBlocked) {
       res.status(200).json({ message: "This user is blocked" });
     } else if (!user.isVerified) {
-      const token = await genToken(user._id, "30m");
+      const token = await genToken(user._id, "1d");
       const subject = "verify now";
       const link = `${req.protocol}://${req.get(
         "host"
@@ -211,7 +211,7 @@ const addProfilePicture = async (req, res) => {
 
       let result = null;
       // Delete the existing image from local upload folder and Cloudinary
-      if (req.files) {
+      if (req.files && req.files.profilePicture.mimetype.includes("image")) {
         if (profile.profilePicture) {
           const publicId = profile.profilePicture
             .split("/")
