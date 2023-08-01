@@ -37,6 +37,7 @@ const newUser = async (req, res) => {
       sendEmail(data);
       res.status(201).json({
         success: true,
+        token: token,
         user,
       });
     }
