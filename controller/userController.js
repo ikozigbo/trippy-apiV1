@@ -8,42 +8,36 @@ const fs = require("fs");
 
 const newUser = async (req, res) => {
   try {
-    const { firstName, lastName, email, password, confirmPassword } = req.body;
+    const { firstName, lastName, email, password } = req.body;
     const isEmail = await User.findOne({ email });
-    if (password === confirmPassword) {
-      if (isEmail) {
-        res.status(409).json({
-          message: "email already registerd",
-        });
-      } else {
-        const salt = bcryptjs.genSaltSync(10);
-        const hash = bcryptjs.hashSync(password, salt);
-        const user = await User.create({
-          firstName,
-          lastName,
-          email: email.toLowerCase(),
-          password: hash,
-        });
-        const token = await genToken(user._id, "30m");
-        const subject = "New User";
-        const link = `${req.protocol}://${req.get(
-          "host"
-        )}/trippy/verify/${token}`;
-        const message = `welcome onboard kindly use this ${link} to verify your account`;
-        const data = {
-          email: email,
-          subject,
-          message,
-        };
-        sendEmail(data);
-        res.status(201).json({
-          success: true,
-          user,
-        });
-      }
+    if (isEmail) {
+      res.status(409).json({
+        message: "email already registerd",
+      });
     } else {
-      res.status(400).json({
-        message: "Your password and Confirm password must match",
+      const salt = bcryptjs.genSaltSync(10);
+      const hash = bcryptjs.hashSync(password, salt);
+      const user = await User.create({
+        firstName,
+        lastName,
+        email: email.toLowerCase(),
+        password: hash,
+      });
+      const token = await genToken(user._id, "30m");
+      const subject = "New User";
+      const link = `${req.protocol}://${req.get(
+        "host"
+      )}/trippy/verify/${token}`;
+      const message = `welcome onboard kindly use this ${link} to verify your account`;
+      const data = {
+        email: email,
+        subject,
+        message,
+      };
+      sendEmail(data);
+      res.status(201).json({
+        success: true,
+        user,
       });
     }
   } catch (error) {
