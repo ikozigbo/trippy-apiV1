@@ -15,9 +15,10 @@ const {
 } = require("../controller/userController");
 
 const { isAdmin, userAuth } = require("../middlewares/authmiddleware");
+const { validationMiddleware } = require("../middlewares/validator");
 const router = express.Router();
 
-router.post("/signup", newUser);
+router.post("/signup", validationMiddleware, newUser);
 
 router.put("/verify/:token", userVerify);
 router.post("/signin", signin);
