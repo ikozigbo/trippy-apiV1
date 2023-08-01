@@ -207,21 +207,24 @@ const addProfilePicture = async (req, res) => {
   try {
     const profile = await User.findById(req.user._id);
     if (profile) {
-      //console.log(req.file);
+      //console.log(req.files);
+
       let result = null;
       // Delete the existing image from local upload folder and Cloudinary
-      if (req.file) {
+      if (req.files) {
         if (profile.profilePicture) {
           const publicId = profile.profilePicture
             .split("/")
             .pop()
             .split(".")[0];
-          console.log(publicId);
+          //console.log(publicId);
           await cloudinary.uploader.destroy(publicId);
         }
-        result = await cloudinary.uploader.upload(req.file.path);
+        result = await cloudinary.uploader.upload(
+          req.files.profilePicture.tempFilePath
+        );
         // Delete file from local upload folder
-        fs.unlinkSync(req.file.path);
+        //fs.unlinkSync(req.file.path);
         profile.set({
           profilePicture: result.secure_url,
         });
@@ -244,8 +247,6 @@ const addProfilePicture = async (req, res) => {
     });
   }
 };
-
-//update profile piicture
 
 const deleteUser = async (req, res) => {
   try {
