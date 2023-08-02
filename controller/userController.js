@@ -50,10 +50,10 @@ const newUser = async (req, res) => {
 const userVerify = async (req, res) => {
   try {
     const { token } = req.params;
-    console.log(token);
+    //console.log(token);
     //console.log(id);
     const userInfo = await decodeToken(token);
-    console.log(userInfo);
+    //console.log(userInfo);
     //const tokens = await jwt.verify(token, process.env.JWT_SECRET);
     if (userInfo) {
       await User.findByIdAndUpdate(userInfo._id, { isVerified: true });
