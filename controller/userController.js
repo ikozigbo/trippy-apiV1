@@ -10,36 +10,36 @@ const { generateDynamicEmail } = require("../utilities/emailTemplate");
 const newUser = async (req, res) => {
   try {
     const { firstName, lastName, email, password } = req.body;
-    //const isEmail = await User.findOne({ email });
-    // if (isEmail) {
-    //   res.status(409).json({
-    //     message: "email already registerd",
-    //   });
-    // } else {
-    const salt = bcryptjs.genSaltSync(10);
-    const hash = bcryptjs.hashSync(password, salt);
-    const user = await User.create({
-      firstName,
-      lastName,
-      email: email.toLowerCase(),
-      password: hash,
-    });
-    const token = await genToken(user._id, "1d");
-    const subject = "New User";
-    const link = `http://localhost:5173/verify?token=${token}`;
-    const html = await generateDynamicEmail(link);
-    const data = {
-      email: email,
-      subject,
-      html,
-    };
-    sendEmail(data);
-    res.status(201).json({
-      success: true,
-      token: token,
-      user,
-    });
-    //}
+    const isEmail = await User.findOne({ email });
+    if (isEmail) {
+      res.status(409).json({
+        message: "email already registerd",
+      });
+    } else {
+      const salt = bcryptjs.genSaltSync(10);
+      const hash = bcryptjs.hashSync(password, salt);
+      const user = await User.create({
+        firstName,
+        lastName,
+        email: email.toLowerCase(),
+        password: hash,
+      });
+      const token = await genToken(user._id, "1d");
+      const subject = "New User";
+      const link = `http://localhost:5173/verify?token=${token}`;
+      const html = await generateDynamicEmail(link);
+      const data = {
+        email: email,
+        subject,
+        html,
+      };
+      sendEmail(data);
+      res.status(201).json({
+        success: true,
+        token: token,
+        user,
+      });
+    }
   } catch (error) {
     res.status(500).json({
       message: error.message,
