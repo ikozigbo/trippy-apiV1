@@ -135,8 +135,32 @@ const signin = async (req, res) => {
       user.isloggedin = true;
       const token = await genToken(user._id, "1d");
       await user.save();
-
-      res.status(200).json({ token, user });
+      const userRes = await User.findById(user._id);
+      const {
+        firstName,
+        lastName,
+        email,
+        profilePicture,
+        isloggedin,
+        isVerified,
+        isPremium,
+        isBlocked,
+        isAdmin,
+      } = userRes;
+      res.status(200).json({
+        user: {
+          token,
+          firstName,
+          lastName,
+          email,
+          profilePicture,
+          isloggedin,
+          isVerified,
+          isPremium,
+          isBlocked,
+          isAdmin,
+        },
+      });
     }
   } catch (error) {
     res.status(500).json({
