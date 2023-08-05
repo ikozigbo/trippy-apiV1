@@ -24,7 +24,7 @@ router.put("/verify/:token", userVerify);
 router.post("/signin", signin);
 router.get("/logout", userAuth, logout);
 router.get("/getall", userAuth, getAll);
-router.put("/update-user/:userId", userAuth, updateUserName);
+router.put("/update-user", userAuth, updateUserName);
 router.delete("/delete-user/:userId", userAuth, deleteUser);
 router.put("/add-profile-image", userAuth, addProfilePicture);
 router.get("/forgot-password", forgotPassword);
