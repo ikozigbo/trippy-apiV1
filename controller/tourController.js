@@ -77,7 +77,10 @@ const searchTours = async (req, res) => {
 const findTourById = async (req, res) => {
   try {
     const { id } = req.params;
-    const tour = await Tour.findById(id);
+    const tour = await Tour.findById(id).populate("ratings.postedBy", [
+      "firstName",
+      "lastName",
+    ]);
     res.status(200).json({
       success: true,
       tour,
