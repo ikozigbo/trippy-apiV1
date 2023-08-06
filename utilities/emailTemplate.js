@@ -1,7 +1,7 @@
 // emailTemplates.js
 
 // This function generates the email template with a dynamic link
-function generateDynamicEmail(link) {
+function generateDynamicEmail(link, firstName) {
   return `
   <!DOCTYPE html>
 <html lang="en">
@@ -44,7 +44,7 @@ function generateDynamicEmail(link) {
             		<td>
             			<div style="padding: 0 2.5em; text-align: center;">
             				<h2 style="font-family: 'Lato', sans-serif; color: rgba(0,0,0,.3); font-size: 40px; margin-bottom: 0; font-weight: 400;">Please verify your email</h2>
-            				<h3 style="font-family: 'Lato', sans-serif; font-size: 24px; font-weight: 300;">Welcome On Board Trippy,<br/> Travel with Bliss</h3>
+            				<h3 style="font-family: 'Lato', sans-serif; font-size: 24px; font-weight: 300;">Welcome On Board Trippy,${firstName},<br/> Travel with Bliss</h3>
             				<p><a href=${link} class="btn btn-primary" style="padding: 10px 15px; display: inline-block; border-radius: 5px; background: #30e3ca; color: #ffffff; text-decoration: none;">Verify</a></p>
             			</div>
             		</td>

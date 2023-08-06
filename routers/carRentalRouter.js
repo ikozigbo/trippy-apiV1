@@ -9,9 +9,14 @@ const {
 
 const router = express.Router();
 
-router.post("/create-car-rental", createCarRental);
+router.post("/create-car-rental", userAuth, isAdmin, createCarRental);
 router.get("/find-car-rentals", findCarRentals);
 router.get("/car-rental/:carRentalId", findOneCarRental);
-router.delete("/delete-car-rental/:carRentalId", deleteCarRental);
+router.delete(
+  "/delete-car-rental/:carRentalId",
+  userAuth,
+  isAdmin,
+  deleteCarRental
+);
 
 module.exports = router;
