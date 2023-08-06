@@ -28,10 +28,7 @@ const newUser = async (req, res) => {
       const token = await genToken(user._id, "1d");
       const subject = "New User";
       const link = `http://localhost:5173/verify?token=${token}`;
-      const html = await generateDynamicEmail(
-        link,
-        user.firstName.charAt(0).toUpperCase()
-      );
+      const html = await generateDynamicEmail(link, user.firstName);
       const data = {
         email: email,
         subject,
@@ -80,10 +77,7 @@ const resendEmailVerification = async (req, res) => {
       const token = await genToken(user._id, "1d");
       const subject = "New User";
       const link = `http://localhost:5173/verify?token=${token}`;
-      const html = await generateDynamicEmail(
-        link,
-        user.firstName.charAt(0).toUpperCase()
-      );
+      const html = await generateDynamicEmail(link, user.firstName);
       const data = {
         email: email,
         subject,
@@ -128,10 +122,7 @@ const signin = async (req, res) => {
       const token = await genToken(user._id, "1d");
       const subject = "verify now";
       const link = `http://localhost:5173/verify?token=${token}`;
-      const html = await generateDynamicEmail(
-        link,
-        user.firstName.charAt(0).toUpperCase()
-      );
+      const html = await generateDynamicEmail(link, user.firstName);
       const data = {
         email: email,
         subject,
@@ -307,10 +298,7 @@ const forgotPassword = async (req, res) => {
       const token = await genToken(user._id, "30m");
       // for better security practice a unique token should be sent to reset password instead of user._id
       const link = `http://localhost:5173/reset-password?token=${token}`;
-      const html = await generatePasswordEmail(
-        link,
-        user.firstName.charAt(0).toUpperCase()
-      );
+      const html = await generatePasswordEmail(link, user.firstName);
       const data = {
         email: email,
         subject,
