@@ -6,6 +6,7 @@ const { sendEmail } = require("../middlewares/sendEmail");
 const { genToken, decodeToken } = require("../utilities/jwt");
 const fs = require("fs");
 const { generateDynamicEmail } = require("../utilities/emailTemplate");
+const { generatePasswordEmail } = require("../utilities/forgotPasswordEmail");
 
 const newUser = async (req, res) => {
   try {
