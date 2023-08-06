@@ -226,7 +226,7 @@ const addProfilePicture = async (req, res) => {
 
       let result = null;
       // Delete the existing image from local upload folder and Cloudinary
-      if (req.files && req.files.profilePicture.mimetype.includes("image")) {
+      if (req.files && req.files.profilePicture?.mimetype.includes("image")) {
         if (profile.profilePicture) {
           const publicId = profile.profilePicture
             .split("/")
