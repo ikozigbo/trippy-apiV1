@@ -48,7 +48,7 @@ const validationMiddleware = (req, res, next) => {
   // If there's a validation error, return a response with the error details
   if (error) {
     const errorMessage = error.details.map((err) => err.message).join(" ");
-    return res.status(400).json({ error: errorMessage });
+    return res.status(400).json({ message: errorMessage });
   }
 
   // If validation is successful, move to the next middleware
