@@ -27,7 +27,7 @@ const newUser = async (req, res) => {
       });
       const token = await genToken(user._id, "1d");
       const subject = "New User";
-      const link = `http://localhost:5173/verify?token=${token}`;
+      const link = `https://trippy-huas.onrender.com/verify?token=${token}`;
       const html = await generateDynamicEmail(link, user.firstName);
       const data = {
         email: email,
@@ -76,7 +76,7 @@ const resendEmailVerification = async (req, res) => {
     if (user && !user.isVerified) {
       const token = await genToken(user._id, "1d");
       const subject = "New User";
-      const link = `http://localhost:5173/verify?token=${token}`;
+      const link = `https://trippy-huas.onrender.com/verify?token=${token}`;
       const html = await generateDynamicEmail(link, user.firstName);
       const data = {
         email: email,
@@ -121,7 +121,7 @@ const signin = async (req, res) => {
     } else if (!user.isVerified) {
       const token = await genToken(user._id, "1d");
       const subject = "verify now";
-      const link = `http://localhost:5173/verify?token=${token}`;
+      const link = `https://trippy-huas.onrender.com/verify?token=${token}`;
       const html = await generateDynamicEmail(link, user.firstName);
       const data = {
         email: email,
@@ -297,7 +297,7 @@ const forgotPassword = async (req, res) => {
       const subject = "forgotten password";
       const token = await genToken(user._id, "30m");
       // for better security practice a unique token should be sent to reset password instead of user._id
-      const link = `http://localhost:5173/reset-password?token=${token}`;
+      const link = `https://trippy-huas.onrender.com/reset-password?token=${token}`;
       const html = await generatePasswordEmail(link, user.firstName);
       const data = {
         email: email,
