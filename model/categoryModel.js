@@ -14,7 +14,7 @@ const categorySchema = new mongoose.Schema(
       lowercase: true,
       enum: ["africa", "europe", "asia", "north-and-south-america"],
     },
-    place: [
+    places: [
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Tour",
