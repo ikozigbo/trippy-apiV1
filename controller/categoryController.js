@@ -37,7 +37,9 @@ const addTour = async (req, res) => {
     const category = await Category.findById(categoryId);
     category.places.push(tourId);
     await category.save();
-    const updatedCategory = await Category.findById(categoryId).populate();
+    const updatedCategory = await Category.findById(categoryId).populate(
+      "places"
+    );
     res.status(200).json({
       updatedCategory,
     });
