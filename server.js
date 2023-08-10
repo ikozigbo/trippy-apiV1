@@ -17,7 +17,6 @@ const app = express();
 
 // Enable CORS for all routes
 app.use(
-  "/trippy",
   cors({
     origin: "*",
     methods: ["GET", "POST", "PUT", "DELETE"], // Add the allowed methods here
