@@ -24,8 +24,14 @@ app.use(
 );
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Methods", "*"); // Allow all methods
+  res.header("Access-Control-Allow-Methods", "*");
+  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization"); // Allow all methods
   next();
+});
+
+// Handle preflight requests
+app.options("*", (req, res) => {
+  res.status(200).send();
 });
 
 app.use(express.json());
