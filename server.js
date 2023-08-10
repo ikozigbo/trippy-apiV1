@@ -16,7 +16,12 @@ const PORT = process.env.PORT || 5050;
 const app = express();
 
 // Enable CORS for all routes
-app.use(cors({ origin: "*" }));
+app.use(
+  cors({
+    origin: "*",
+    methods: ["GET", "POST", "PUT", "DELETE"], // Add the allowed methods here
+  })
+);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
