@@ -17,12 +17,17 @@ const app = express();
 
 // Enable CORS for all routes
 app.use(
+  "/trippy",
   cors({
     origin: "*",
     methods: ["GET", "POST", "PUT", "DELETE"], // Add the allowed methods here
   })
 );
-
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Methods", "GET"); // Specify allowed methods
+  next(); // Continue to the next middleware/route handler
+});
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(
