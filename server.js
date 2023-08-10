@@ -25,9 +25,10 @@ app.use(
 );
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Methods", "GET"); // Specify allowed methods
-  next(); // Continue to the next middleware/route handler
+  res.header("Access-Control-Allow-Methods", "*"); // Allow all methods
+  next();
 });
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(
