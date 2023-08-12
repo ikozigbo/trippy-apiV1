@@ -111,46 +111,32 @@ const signin = async (req, res) => {
     let checkPassword = false;
     if (user) {
       checkPassword = bcryptjs.compareSync(password, user.password);
-    }
-    if (!user || !checkPassword) {
-      res.status(400).json({
-        message: "invalid credentials",
-      });
-    } else if (user.isBlocked) {
-      res.status(200).json({ message: "This user is blocked" });
-    } else if (!user.isVerified) {
-      const token = await genToken(user._id, "1d");
-      const subject = "verify now";
-      const link = `https://trippy-huas.onrender.com/#/verify?token=${token}`;
-      const html = await generateDynamicEmail(link, user.firstName);
-      const data = {
-        email: email,
-        subject,
-        html,
-      };
-      sendEmail(data);
-      res.status(401).json({
-        message: "you are not verified check your email to verify",
-      });
-    } else {
-      user.isloggedin = true;
-      const token = await genToken(user._id, "1d");
-      await user.save();
-      const userRes = await User.findById(user._id);
-      const {
-        firstName,
-        lastName,
-        email,
-        profilePicture,
-        isloggedin,
-        isVerified,
-        isPremium,
-        isBlocked,
-        isAdmin,
-      } = userRes;
-      res.status(200).json({
-        user: {
-          token,
+      if (!checkPassword) {
+        res.status(400).json({
+          message: "invalid password",
+        });
+      } else if (user.isBlocked) {
+        res.status(200).json({ message: "This user is blocked" });
+      } else if (!user.isVerified) {
+        const token = await genToken(user._id, "1d");
+        const subject = "verify now";
+        const link = `https://trippy-huas.onrender.com/#/verify?token=${token}`;
+        const html = await generateDynamicEmail(link, user.firstName);
+        const data = {
+          email: email,
+          subject,
+          html,
+        };
+        sendEmail(data);
+        res.status(401).json({
+          message: "you are not verified check your email to verify",
+        });
+      } else {
+        user.isloggedin = true;
+        const token = await genToken(user._id, "1d");
+        await user.save();
+        const userRes = await User.findById(user._id);
+        const {
           firstName,
           lastName,
           email,
@@ -160,8 +146,24 @@ const signin = async (req, res) => {
           isPremium,
           isBlocked,
           isAdmin,
-        },
-      });
+        } = userRes;
+        res.status(200).json({
+          user: {
+            token,
+            firstName,
+            lastName,
+            email,
+            profilePicture,
+            isloggedin,
+            isVerified,
+            isPremium,
+            isBlocked,
+            isAdmin,
+          },
+        });
+      }
+    } else {
+      res.status(400).json({ message: "user with this email does not exist" });
     }
   } catch (error) {
     res.status(500).json({
