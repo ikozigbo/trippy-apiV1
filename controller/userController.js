@@ -300,7 +300,7 @@ const forgotPassword = async (req, res) => {
       const subject = "forgotten password";
       const token = await genToken(user._id, "30m");
       // for better security practice a unique token should be sent to reset password instead of user._id
-      const link = `http://localhost:5173/#/reset-password?token=${token}`;
+      const link = `https://trippy-huas.onrender.com/#/reset-password?token=${token}`;
       const html = await generatePasswordEmail(link, user.firstName);
       const data = {
         email: email,
