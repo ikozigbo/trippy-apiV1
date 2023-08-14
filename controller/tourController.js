@@ -80,6 +80,7 @@ const findTourById = async (req, res) => {
     const tour = await Tour.findById(id).populate("ratings.postedBy", [
       "firstName",
       "lastName",
+      "profilePicture",
     ]);
     res.status(200).json({
       success: true,
