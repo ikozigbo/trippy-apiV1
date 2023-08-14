@@ -30,6 +30,7 @@ const tourSchema = new mongoose.Schema(
       {
         star: Number,
         comment: String,
+        postedTime: String,
         postedBy: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
       },
     ],
