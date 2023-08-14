@@ -13,7 +13,7 @@ const router = express.Router();
 
 router.post("/create-tour", userAuth, isAdmin, createTour);
 router.get("/find-tours", searchTours);
-router.get("/findone-tour", findTourById);
+router.get("/findone-tour/:id", findTourById);
 router.put("/update-tour/:id", userAuth, isAdmin, updateTourById);
 router.put("/rate-tour/:tourId", userAuth, tourRating);
 router.put("/deletetour-rating/:tourId", userAuth, deleteTourRating);
