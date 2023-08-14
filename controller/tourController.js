@@ -4,15 +4,31 @@ const cloudinary = require("../utilities/cloudinary");
 function getCurrentDateTime() {
   const currentDate = new Date();
 
+  const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+
+  const month = months[currentDate.getMonth()];
+  const day = currentDate.getDate();
   const year = currentDate.getFullYear();
-  const month = (currentDate.getMonth() + 1).toString().padStart(2, "0");
-  const day = currentDate.getDate().toString().padStart(2, "0");
 
-  const hours = currentDate.getHours().toString().padStart(2, "0");
+  let hours = currentDate.getHours();
+  const amOrPm = hours >= 12 ? "PM" : "AM";
+  hours = hours % 12 || 12;
   const minutes = currentDate.getMinutes().toString().padStart(2, "0");
-  const seconds = currentDate.getSeconds().toString().padStart(2, "0");
 
-  const currentDateTime = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+  const currentDateTime = `${month} ${day}, ${year}, ${hours}:${minutes} ${amOrPm}`;
   return currentDateTime;
 }
 
