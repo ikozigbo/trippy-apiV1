@@ -13,7 +13,7 @@ const router = express.Router();
 
 router.post("/create-hotel", userAuth, isAdmin, createHotel);
 router.get("/find-hotels", searchHotels);
-router.get("/findone-hotel", findHotelById);
+router.get("/findone-hotel/:id", findHotelById);
 router.put("/update-hotel/:id", userAuth, isAdmin, updateHotelById);
 router.put("/rate-hotel/:hotelId", userAuth, hotelRating);
 router.put("/deletehotel-rating/:hotelId", userAuth, deleteHotelRating);
