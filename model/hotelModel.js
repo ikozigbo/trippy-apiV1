@@ -26,11 +26,11 @@ const hotelSchema = new mongoose.Schema(
       required: [true, "Description is required."],
     },
     checkIn: {
-      type: Number,
+      type: String,
       required: [true, "Check in time is required."],
     },
     checkOut: {
-      type: Number,
+      type: String,
       required: [true, "Check out time is required."],
     },
     pricePerNight: {
