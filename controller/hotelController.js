@@ -1,5 +1,6 @@
 const Hotel = require("../model/hotelModel");
 const cloudinary = require("../utilities/cloudinary");
+const { getCurrentDateTime } = require("../utilities/currentDate");
 
 //create hotel
 const createHotel = async (req, res) => {
@@ -213,6 +214,7 @@ const hotelRating = async (req, res) => {
     let alreadyRated = hotel.ratings.find(
       (obj) => obj.postedBy?.toString() === _id.toString()
     );
+    const date = getCurrentDateTime();
     if (alreadyRated) {
       const updateRating = await Hotel.updateOne(
         {
@@ -221,7 +223,11 @@ const hotelRating = async (req, res) => {
           },
         },
         {
-          $set: { "ratings.$.star": star, "ratings.$.comment": comment },
+          $set: {
+            "ratings.$.star": star,
+            "ratings.$.comment": comment,
+            "ratings.$.postedTime": date,
+          },
         },
         { new: true }
       );
@@ -234,6 +240,7 @@ const hotelRating = async (req, res) => {
             ratings: {
               star: star,
               comment: comment,
+              postedTime: date,
               postedBy: _id,
             },
           },
