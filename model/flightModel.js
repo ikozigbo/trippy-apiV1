@@ -15,12 +15,10 @@ const flightSchema = new mongoose.Schema(
     depatureTime: {
       type: String,
       required: [true, "depature time is required."],
-      lowercase: true,
     },
     arrivalTime: {
       type: String,
       required: [true, "arrival time is required."],
-      lowercase: true,
     },
     priceStandard: {
       type: Number,
