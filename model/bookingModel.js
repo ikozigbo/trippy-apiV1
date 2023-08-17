@@ -1,4 +1,3 @@
-const { required } = require("@hapi/joi");
 const mongoose = require("mongoose");
 
 const bookingSchema = new mongoose.Schema(
@@ -7,18 +6,47 @@ const bookingSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
     },
-    hotel: {
+    tourId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Hotel",
+      ref: "Tour",
     },
-    flight: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Flight",
+    hotelBooking: {
+      hotel: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Hotel",
+      },
+      checkInDate: { type: String },
+      checkOutDate: { type: String },
+      numberOfGuests: { type: Number },
+      numberOfRooms: { type: Number },
+      hotelPrice: { type: Number },
     },
-    carRental: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Car-Rental",
+    flightBooking: {
+      flight: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Flight",
+      },
+      numberOfTickets: { type: Number },
+      namesOfTravelers: { type: Array },
+      flightDate: { type: String },
+      returnDate: { type: String },
+      returnFlight: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Flight",
+      },
+      flightPrice: { type: Number },
     },
+    rentalBooking: {
+      carRental: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Car-Rental",
+      },
+      rentalDays: { type: Number },
+      rentalDate: { type: String },
+      rentalPrice: { type: Number },
+    },
+
+    totalPrice: { type: Number },
   },
   { timestamps: true }
 );
