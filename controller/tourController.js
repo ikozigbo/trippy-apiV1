@@ -5,11 +5,13 @@ const { getCurrentDateTime } = require("../utilities/currentDate");
 //create tour
 const createTour = async (req, res) => {
   try {
-    const { tourName, city, country, info, amenities } = req.body;
+    const { tourName, city, country, info, amenities, pricePerPerson } =
+      req.body;
     const newTour = await Tour.create({
       tourName,
       city,
       country,
+      pricePerPerson,
       info,
       amenities,
     });

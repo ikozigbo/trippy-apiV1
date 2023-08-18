@@ -17,6 +17,10 @@ const tourSchema = new mongoose.Schema(
       required: [true, "country is required."],
       lowercase: true,
     },
+    pricePerPerson: {
+      type: Number,
+      required: [true, "price is required."],
+    },
     info: {
       type: String,
       required: [true, "info is required."],
