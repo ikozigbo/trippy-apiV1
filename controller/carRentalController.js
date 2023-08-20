@@ -7,6 +7,7 @@ const createCarRental = async (req, res) => {
       brand,
       location,
       model,
+      color,
       type,
       registrationNumber,
       maxPassengers,
@@ -23,6 +24,7 @@ const createCarRental = async (req, res) => {
     const newcarRental = await CarRental.create({
       brand,
       location,
+      color,
       model,
       type,
       registrationNumber,
@@ -47,7 +49,7 @@ const findCarRentals = async (req, res) => {
     const queryObj = { ...req.query };
 
     // Define an array of allowed fields
-    const allowedFields = ["brand", "location", "model", "type"];
+    const allowedFields = ["brand", "location", "color", "model", "type"];
 
     // Loop through the queryObj and delete any field that is not in the allowedFields array
     for (const key in queryObj) {

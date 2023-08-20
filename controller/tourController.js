@@ -1,4 +1,5 @@
 const Tour = require("../model/tourModel");
+const User = require("../model/userModel");
 const cloudinary = require("../utilities/cloudinary");
 const { getCurrentDateTime } = require("../utilities/currentDate");
 
@@ -288,6 +289,47 @@ const deleteTourRating = async (req, res) => {
   }
 };
 
+const addToWishlist = async (req, res) => {
+  const { _id } = req.user;
+  const { tourId } = req.params;
+  try {
+    const user = await User.findById(_id);
+    const alreadyAdded = user.wishlist.find((id) => id.toString() === tourId);
+    // console.log(use);
+    if (alreadyAdded) {
+      let userWish = await User.findByIdAndUpdate(
+        _id,
+        { $pull: { wishlist: tourId } },
+        { new: true }
+      ).populate("wishlist");
+      res.status(200).json({ userWish });
+    } else {
+      let userWish = await User.findByIdAndUpdate(
+        _id,
+        { $push: { wishlist: tourId } },
+        { new: true }
+      ).populate("wishlist");
+      res.status(200).json(userWish);
+    }
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+};
+
+const getWishList = async (req, res) => {
+  const { _id } = req.user;
+  try {
+    const user = await User.findById(_id).populate("wishlist");
+    res.status(200).json(user);
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+};
+
 module.exports = {
   createTour,
   searchTours,
@@ -296,4 +338,6 @@ module.exports = {
   deleteTourById,
   tourRating,
   deleteTourRating,
+  addToWishlist,
+  getWishList,
 };

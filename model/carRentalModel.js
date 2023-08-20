@@ -17,6 +17,11 @@ const carRentalSchema = new mongoose.Schema(
       required: [true, "Model is required."],
       lowercase: true,
     },
+    color: {
+      type: String,
+      required: [true, "Color is required"],
+      lowercase: true,
+    },
     type: {
       type: String,
       required: [true, "Vehicle Type is required."],
