@@ -1,7 +1,7 @@
 // emailTemplates.js
 
 // This function generates the email template with a dynamic link
-function generateDynamicEmail(link, firstName) {
+function generateBookingEmail(firstname) {
   return `
   <!DOCTYPE html>
 <html lang="en">
@@ -20,6 +20,7 @@ function generateDynamicEmail(link, firstName) {
     </div>
     <div style="max-width: 600px; margin: 0 auto;">
     	<!-- BEGIN BODY -->
+        
       <table align="center" role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin: auto;">
       	<tr>
           <td valign="top" style="padding: 1em 2.5em 0 2.5em; background-color: #ffffff;">
@@ -43,9 +44,10 @@ function generateDynamicEmail(link, firstName) {
             	<tr>
             		<td>
             			<div style="padding: 0 2.5em; text-align: center;">
-            				<h2 style="font-family: 'Lato', sans-serif; color: rgba(0,0,0,.3); font-size: 40px; margin-bottom: 0; font-weight: 400;">Please verify your email</h2>
-            				<h3 style="font-family: 'Lato', sans-serif; font-size: 24px; font-weight: 300;">Welcome On Board Trippy, ${firstName},<br/> Travel with Bliss</h3>
-            				<p><a href=${link} class="btn btn-primary" style="padding: 10px 15px; display: inline-block; border-radius: 5px; background: #30e3ca; color: #ffffff; text-decoration: none;">Verify</a></p>
+            				<h2 style="font-family: 'Lato', sans-serif; color: rgba(0,0,0,.3); font-size: 40px; margin-bottom: 0; font-weight: 400;">Booking Confirmation</h2>
+            				<h3 style="font-family: 'Lato', sans-serif; font-size: 24px; font-weight: 300;">This is your booking confirmation, ${firstname},<br/> Travel with Bliss</h3>
+            				
+                            
             			</div>
             		</td>
             	</tr>
@@ -117,5 +119,5 @@ function generateDynamicEmail(link, firstName) {
 }
 
 module.exports = {
-  generateDynamicEmail,
+  generateBookingEmail,
 };

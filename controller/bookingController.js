@@ -1,4 +1,16 @@
+const { sendEmail } = require("../middlewares/sendEmail");
 const Booking = require("../model/bookingModel");
+const QRCode = require("qrcode");
+const { generateBookingEmail } = require("../utilities/bookingConfirmation");
+const User = require("../model/userModel");
+
+// const qrCode = async (text) => {
+//   try {
+//     return await QRCode.toDataURL(text);
+//   } catch (err) {
+//     console.log("Error generating the QR code", err);
+//   }
+// };
 
 const createBooking = async (req, res) => {
   try {
@@ -26,7 +38,7 @@ const createBooking = async (req, res) => {
 
     console.log(checkOutDate);
     const { _id } = req.user;
-
+    const user = await User.findById(_id);
     const booking = {
       user: _id,
       tourId: tourId,
@@ -57,6 +69,18 @@ const createBooking = async (req, res) => {
     };
 
     const newBooking = await Booking.create(booking);
+    // const code = await qrCode(`https://trippy-huas.onrender.com`);
+    //console.log(code);
+    const subject = "Booking Confirmation";
+    const link = `https://trippy-huas.onrender.com`;
+    const html = await generateBookingEmail(user.firstName);
+    console.log(html);
+    const data = {
+      email: user.email,
+      subject,
+      html,
+    };
+    sendEmail(data);
     res.status(200).json({
       success: true,
       newBooking,

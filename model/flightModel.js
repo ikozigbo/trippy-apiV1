@@ -12,6 +12,16 @@ const flightSchema = new mongoose.Schema(
       required: [true, "landing city is required."],
       lowercase: true,
     },
+    depatureAirport: {
+      type: String,
+      required: [true, "departure Airport Name required"],
+      lowercase: true,
+    },
+    arrivalAirport: {
+      type: String,
+      required: [true, "arrival Airport Name required"],
+      lowercase: true,
+    },
     depatureTime: {
       type: String,
       required: [true, "depature time is required."],
