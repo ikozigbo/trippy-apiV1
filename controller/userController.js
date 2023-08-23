@@ -146,6 +146,7 @@ const signin = async (req, res) => {
           isPremium,
           isBlocked,
           isAdmin,
+          wishlist,
         } = userRes;
         res.status(200).json({
           user: {
@@ -155,6 +156,7 @@ const signin = async (req, res) => {
             email,
             profilePicture,
             isloggedin,
+            wishlist,
             isVerified,
             isPremium,
             isBlocked,
