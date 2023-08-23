@@ -33,6 +33,7 @@ const createBooking = async (req, res) => {
       numberOfGuests,
       numberOfRooms,
       hotelPrice,
+      tourPrice,
       totalPrice,
     } = req.body;
 
@@ -41,7 +42,10 @@ const createBooking = async (req, res) => {
     const user = await User.findById(_id);
     const booking = {
       user: _id,
-      tourId: tourId,
+      tourBooking: {
+        tourPrice: tourPrice,
+        tourId: tourId,
+      },
       hotelBooking: {
         hotel: hotelId,
         checkInDate: checkInDate,

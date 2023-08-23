@@ -6,9 +6,12 @@ const bookingSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
     },
-    tourId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Tour",
+    tourBooking: {
+      tourPrice: { type: Number },
+      tourId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Tour",
+      },
     },
     hotelBooking: {
       hotel: {
@@ -45,7 +48,6 @@ const bookingSchema = new mongoose.Schema(
       rentalDate: { type: String },
       rentalPrice: { type: Number },
     },
-
     totalPrice: { type: Number },
   },
   { timestamps: true }
