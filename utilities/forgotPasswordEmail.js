@@ -88,10 +88,10 @@ function generatePasswordEmail(link, firstName) {
                       <td style="text-align: left; padding-left: 10px;">
                       	<h3 style="color: #000; font-size: 20px; margin-top: 0; font-weight: 400;">Useful Links</h3>
                       	<ul>
-					                <li><a href="#" style="color: #30e3ca;">Home</a></li>
-					                <li><a href="#" style="color: #30e3ca;">About</a></li>
-					                <li><a href="#" style="color: #30e3ca;">Services</a></li>
-					                <li><a href="#" style="color: #30e3ca;">Work</a></li>
+					                <li><a href="https://trippy-huas.onrender.com/" style="color: #30e3ca;">Home</a></li>
+					                <li><a href="https://trippy-huas.onrender.com/" style="color: #30e3ca;">About</a></li>
+					                <li><a href="https://trippy-huas.onrender.com/" style="color: #30e3ca;">Services</a></li>
+					                <li><a href="https://trippy-huas.onrender.com/" style="color: #30e3ca;">Work</a></li>
 					              </ul>
                       </td>
                     </tr>
