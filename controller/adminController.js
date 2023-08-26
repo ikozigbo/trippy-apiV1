@@ -1,4 +1,9 @@
 const User = require("../model/userModel");
+const Tour = require("../model/tourModel");
+const Car = require("../model/carRentalModel");
+const Booking = require("../model/bookingModel");
+const Hotel = require("../model/hotelModel");
+const Flight = require("../model/flightModel");
 
 const signupAdmin = async (req, res) => {
   try {
@@ -110,10 +115,42 @@ const upgradeUserToAdmin = async (req, res) => {
   }
 };
 
+function calculateTotalPrice(bookings) {
+  // Use the reduce method to iterate through the array and add up the totalPrice values
+  const totalPriceSum = bookings.reduce((accumulator, currentBooking) => {
+    return accumulator + currentBooking.totalPrice;
+  }, 0); // Initial value of the accumulator is 0
+
+  return totalPriceSum;
+}
+
+const dashboardData = async (req, res) => {
+  try {
+    const users = await User.find();
+    const tours = await Tour.find();
+    const bookings = await Booking.find();
+    const hotels = await Hotel.find();
+    const cars = await Car.find();
+    const revenue = calculateTotalPrice(bookings);
+    res.status(200).json({
+      users: users.length(),
+      tours: tours.length(),
+      hotels: hotels.length(),
+      cars: cars.length(),
+      revenue,
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+};
+
 module.exports = {
   upgradeUserToAdmin,
   blockUser,
   unblockUser,
   getAllBlockedUsers,
   signupAdmin,
+  dashboardData,
 };

@@ -6,6 +6,7 @@ const {
   blockUser,
   unblockUser,
   getAllBlockedUsers,
+  dashboardData,
 } = require("../controller/adminController");
 const { isAdmin, userAuth } = require("../middlewares/authmiddleware");
 
@@ -15,4 +16,5 @@ router.put("/upgrade-to-admin", userAuth, isAdmin, upgradeUserToAdmin);
 router.put("/blockuser", userAuth, isAdmin, blockUser);
 router.put("/unblockuser", userAuth, isAdmin, unblockUser);
 router.get("/get-blocked", userAuth, isAdmin, getAllBlockedUsers);
+router.get("/dashboard-data", userAuth, isAdmin, dashboardData);
 module.exports = router;
