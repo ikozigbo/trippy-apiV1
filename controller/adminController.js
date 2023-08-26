@@ -133,10 +133,10 @@ const dashboardData = async (req, res) => {
     const cars = await Car.find();
     const revenue = calculateTotalPrice(bookings);
     res.status(200).json({
-      users: users.length(),
-      tours: tours.length(),
-      hotels: hotels.length(),
-      cars: cars.length(),
+      users: users.length,
+      tours: tours.length,
+      hotels: hotels.length,
+      cars: cars.length,
       revenue,
     });
   } catch (error) {
