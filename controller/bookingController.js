@@ -57,7 +57,7 @@ const createBooking = async (req, res) => {
     let returnFlightArrival = "-";
     let carRentalDetails = "-";
     let tourDetails = "-";
-    const price = tourPrice;
+    const price = totalPrice;
 
     //console.log(checkOutDate);
 
@@ -191,4 +191,22 @@ const getUserBooking = async (req, res) => {
   }
 };
 
-module.exports = { createBooking, getBookingById, getUserBooking };
+const getAllBookings = async (req, res) => {
+  try {
+    const bookings = await Booking.find();
+    res.status(200).json({
+      bookings,
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+};
+
+module.exports = {
+  createBooking,
+  getBookingById,
+  getUserBooking,
+  getAllBookings,
+};
