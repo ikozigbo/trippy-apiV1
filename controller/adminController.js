@@ -129,6 +129,7 @@ const dashboardData = async (req, res) => {
     const users = await User.find();
     const tours = await Tour.find();
     const bookings = await Booking.find();
+    const flights = await Flight.find();
     const hotels = await Hotel.find();
     const cars = await Car.find();
     const revenue = calculateTotalPrice(bookings);
@@ -136,6 +137,7 @@ const dashboardData = async (req, res) => {
       users: users.length,
       tours: tours.length,
       hotels: hotels.length,
+      flights: flights.length,
       cars: cars.length,
       revenue,
     });
