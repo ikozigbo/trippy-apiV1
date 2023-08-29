@@ -19,7 +19,7 @@ const userAuth = async (req, res, next) => {
         });
       }
     } else {
-      res.status(404).json({
+      res.status(400).json({
         message: "No authorization found, please login",
       });
     }
