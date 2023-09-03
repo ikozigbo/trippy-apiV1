@@ -11,6 +11,7 @@ const carRouter = require("./routers/carRentalRouter");
 const tourRouter = require("./routers/tourRouter");
 const categoryRouter = require("./routers/categoryRouter");
 const bookingRouter = require("./routers/bookingRouter");
+const enquiryRouter = require("./routers/enquiryRouter");
 const PORT = process.env.PORT || 5050;
 
 const app = express();
@@ -22,7 +23,6 @@ app.use(
     methods: ["GET", "POST", "PUT", "DELETE"], // Add the allowed methods here
   })
 );
-
 
 // Handle preflight requests
 app.options("*", (req, res) => {
@@ -39,7 +39,7 @@ app.use(
 app.use(morgan("dev"));
 
 app.get("/", (req, res) => {
-  res.send("Welcome to my server!");
+  res.send("Welcome to trippy server!");
 });
 app.use("/trippy", userRouter);
 app.use("/trippy", adminRouter);
@@ -49,6 +49,7 @@ app.use("/trippy", flightRouter);
 app.use("/trippy", carRouter);
 app.use("/trippy", bookingRouter);
 app.use("/trippy", categoryRouter);
+app.use("/trippy", enquiryRouter);
 
 app.listen(PORT, () => {
   console.log(`listening to port ${PORT}`);
