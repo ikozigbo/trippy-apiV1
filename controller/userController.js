@@ -214,8 +214,34 @@ const updateUserName = async (req, res) => {
       { firstName, lastName },
       { new: true }
     );
+    const token = await genToken(updatedUser._id, "1d");
+    const {
+      email,
+      profilePicture,
+      isloggedin,
+      isVerified,
+      isPremium,
+      isBlocked,
+      isAdmin,
+      wishlist,
+    } = updatedUser;
 
-    res.status(200).json({ message: "user name updated", updatedUser });
+    res.status(200).json({
+      message: "user name updated",
+      updatedUser: {
+        token,
+        firstName,
+        lastName,
+        email,
+        profilePicture,
+        isloggedin,
+        isVerified,
+        isPremium,
+        isBlocked,
+        isAdmin,
+        wishlist,
+      },
+    });
   } catch (error) {
     res.status(500).json({
       message: error.message,
@@ -252,10 +278,35 @@ const addProfilePicture = async (req, res) => {
         await profile.save();
 
         const updated = await User.findById(req.user._id);
-
-        res
-          .status(200)
-          .json({ message: "profile updated successfully", data: updated });
+        const token = await genToken(updated._id, "1d");
+        const {
+          firstName,
+          lastName,
+          email,
+          profilePicture,
+          isloggedin,
+          isVerified,
+          isPremium,
+          isBlocked,
+          isAdmin,
+          wishlist,
+        } = updated;
+        res.status(200).json({
+          message: "profile updated successfully",
+          data: {
+            token,
+            firstName,
+            lastName,
+            email,
+            profilePicture,
+            isloggedin,
+            isVerified,
+            isPremium,
+            isBlocked,
+            isAdmin,
+            wishlist,
+          },
+        });
       } else {
         res.status(400).json({ error: "no profile picture added" });
       }

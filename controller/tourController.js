@@ -1,7 +1,9 @@
 const Tour = require("../model/tourModel");
 const User = require("../model/userModel");
 const cloudinary = require("../utilities/cloudinary");
+const { genToken, decodeToken } = require("../utilities/jwt");
 const { getCurrentDateTime } = require("../utilities/currentDate");
+const string = require("@hapi/joi/lib/types/string");
 
 //create tour
 const createTour = async (req, res) => {
@@ -302,14 +304,68 @@ const addToWishlist = async (req, res) => {
         { $pull: { wishlist: tourId } },
         { new: true }
       ).populate("wishlist");
-      res.status(200).json({ userWish });
+      const token = await genToken(userWish._id, "1d");
+      const {
+        firstName,
+        lastName,
+        email,
+        profilePicture,
+        isloggedin,
+        isVerified,
+        isPremium,
+        isBlocked,
+        isAdmin,
+        wishlist,
+      } = userWish;
+      res.status(200).json({
+        userWish: {
+          token,
+          firstName,
+          lastName,
+          email,
+          profilePicture,
+          isloggedin,
+          isVerified,
+          isPremium,
+          isBlocked,
+          isAdmin,
+          wishlist,
+        },
+      });
     } else {
       let userWish = await User.findByIdAndUpdate(
         _id,
         { $push: { wishlist: tourId } },
         { new: true }
       ).populate("wishlist");
-      res.status(200).json(userWish);
+      const token = await genToken(userWish._id, "1d");
+      const {
+        firstName,
+        lastName,
+        email,
+        profilePicture,
+        isloggedin,
+        isVerified,
+        isPremium,
+        isBlocked,
+        isAdmin,
+        wishlist,
+      } = userWish;
+      res.status(200).json({
+        userWish: {
+          token,
+          firstName,
+          lastName,
+          email,
+          profilePicture,
+          isloggedin,
+          isVerified,
+          isPremium,
+          isBlocked,
+          isAdmin,
+          wishlist,
+        },
+      });
     }
   } catch (error) {
     res.status(500).json({
