@@ -20,7 +20,7 @@ function getCurrentDateTime() {
   const day = currentDate.getDate();
   const year = currentDate.getFullYear();
 
-  let hours = currentDate.getHours();
+  let hours = currentDate.getHours() + 1;
   const amOrPm = hours >= 12 ? "PM" : "AM";
   hours = hours % 12 || 12;
   const minutes = currentDate.getMinutes().toString().padStart(2, "0");
