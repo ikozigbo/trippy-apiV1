@@ -36,7 +36,7 @@ const createEnquiry = async (req, res) => {
 
 const getEnquiries = async (req, res) => {
   try {
-    const enquiries = await Enquiry.find();
+    const enquiries = await Enquiry.find().populate("user");
     res.status(200).json({ enquiries });
   } catch (error) {
     res.status(500).json({
