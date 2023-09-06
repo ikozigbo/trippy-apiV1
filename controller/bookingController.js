@@ -193,7 +193,10 @@ const getUserBooking = async (req, res) => {
 
 const getAllBookings = async (req, res) => {
   try {
-    const bookings = await Booking.find();
+    const bookings = await Booking.find()
+      .populate("user", ["firstName", "lastName", "profilePicture"])
+      .populate("tourBooking.tourId", ["tourName"])
+      .populate("hotelBooking.hotel");
     res.status(200).json({
       bookings,
     });
